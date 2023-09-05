@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.eclipse.transformer.action.ActionContext;
 import org.eclipse.transformer.action.ByteData;
@@ -13,6 +14,7 @@ import org.eclipse.transformer.action.impl.ClassActionImpl;
 import org.eclipse.transformer.action.impl.SelectionRuleImpl;
 import org.eclipse.transformer.action.impl.SignatureRuleImpl;
 import org.eclipse.transformer.util.FileUtils;
+import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.objectweb.asm.ClassReader;
 import org.slf4j.Logger;
@@ -48,27 +50,6 @@ class QuarkusMpxjProcessor {
       "net.sf.mpxj.primavera",
       "net.sf.mpxj.primavera.schema");
 
-  private static final List<String> packagesToTransform = List.of(packagesToReflect, List.of(
-      "net.sf.mpxj.mspdi",
-      "net.sf.mpxj.planner",
-      "net.sf.mpxj.asta",
-      "net.sf.mpxj.asta.schema",
-      "net.sf.mpxj.conceptdraw",
-      "net.sf.mpxj.conceptdraw.schema",
-      "net.sf.mpxj.fasttrack",
-      "net.sf.mpxj.ganttdesigner",
-      "net.sf.mpxj.ganttproject",
-      "net.sf.mpxj.merlin",
-      "net.sf.mpxj.mdp",
-      "net.sf.mpxj.mpp",
-      "net.sf.mpxj.mpx",
-      "net.sf.mpxj.phoenix",
-      "net.sf.mpxj.projectcommander",
-      "net.sf.mpxj.projectlibre",
-      "net.sf.mpxj.primavera.common",
-      "net.sf.mpxj.primavera.p3",
-      "net.sf.mpxj.primavera.suretrak")).stream().flatMap(List::stream).toList();
-
   @BuildStep
   FeatureBuildItem feature() {
     return new FeatureBuildItem(FEATURE);
@@ -93,7 +74,11 @@ class QuarkusMpxjProcessor {
 
     IndexView index = combinedIndexBuildItem.getIndex();
 
-    packagesToTransform.stream()
+    List<DotName> allPackages = Stream.of(DotName.createSimple("net.sf.mpxj"))
+        .flatMap(s -> streamSubPackages(s, index))
+        .toList();
+
+    allPackages.stream()
         .flatMap(pack -> index.getClassesInPackage(pack).stream())
         .map(classInfo -> classInfo.name().toString())
         .map(s -> new BytecodeTransformerBuildItem.Builder().setCacheable(true).setContinueOnFailure(false)
@@ -101,6 +86,11 @@ class QuarkusMpxjProcessor {
             .setClassToTransform(s).setClassReaderOptions(ClassReader.SKIP_DEBUG)
             .setInputTransformer(transformer::transform).build())
         .forEach(producer::produce);
+  }
+
+  private Stream<DotName> streamSubPackages(DotName pack, IndexView index) {
+    return Stream.concat(Stream.of(pack),
+        index.getSubpackages(pack).stream().flatMap(s -> streamSubPackages(s, index)));
   }
 
   @BuildStep
