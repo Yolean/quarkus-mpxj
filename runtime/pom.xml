@@ -24,9 +24,15 @@
       <artifactId>mpxj</artifactId>
       <version>12.1.1</version>
       <exclusions>
+        <!-- We get a newer version from quarkus-poi  -->
         <exclusion>
           <groupId>org.apache.poi</groupId>
           <artifactId>poi</artifactId>
+        </exclusion>
+        <!-- And we'll never use this (since we wont write any UIs in java) -->
+        <exclusion>
+          <groupId>com.jgoodies</groupId>
+          <artifactId>jgoodies-binding</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
