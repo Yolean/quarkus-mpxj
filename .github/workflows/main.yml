@@ -1,6 +1,11 @@
 name: Publish package to the Maven Central Repository
 on:
-  push
+  push:
+    paths:
+    - 'deployment/**'
+    - 'integration-tests/**'
+    - 'runtime/**'
+    - 'pom.xml'
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -21,5 +26,5 @@ jobs:
         source-directory: 'snapshots'
         destination-github-username: 'Yolean'
         destination-repository-name: 'yolean.github.io'
-        target-directory: 'snapshots/quarkus-mpxj'
+        target-directory: 'snapshots'
         target-branch: mavenrepo
