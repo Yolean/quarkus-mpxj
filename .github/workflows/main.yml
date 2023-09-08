@@ -21,4 +21,5 @@ jobs:
         source-directory: 'snapshots'
         destination-github-username: 'Yolean'
         destination-repository-name: 'yolean.github.io'
+        target-directory: 'snapshots/quarkus-mpxj'
         target-branch: mavenrepo
