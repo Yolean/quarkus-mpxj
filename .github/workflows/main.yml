@@ -14,7 +14,7 @@ jobs:
     - name: Publish package
       run: mvn --batch-mode deploy
     - name: Push to Yolean mavenrepo
-      uses: cpina/github-action-push-to-another-repository@1.7.2
+      uses: cpina/github-action-push-to-another-repository@main
       env:
         SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
       with:
