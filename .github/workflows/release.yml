@@ -30,7 +30,10 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
     - name: Publish package
-      run: mvn release:prepare release:perform -B -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
+      run: mvn release:prepare release:perform -B -s .maven_settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
+      env:
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ github.token }}
     - name: Push to Yolean mavenrepo
       uses: cpina/github-action-push-to-another-repository@main
       env:
