@@ -33,12 +33,8 @@ import se.yolean.quarkus.mpxj.runtime.graal.MPXJFeature;
 class QuarkusMpxjProcessor {
 
   private static final String FEATURE = "quarkus-mpxj";
-
   private static final Logger logger = LoggerFactory.getLogger(QuarkusMpxjProcessor.class);
 
-  // REVIEW I managed to figure out which packages to, and not to, register for reflection for builds to pass
-  // We'll only know in runtime if we need additional packages/classes for import/export to work
-  // Our old reflect-config could probably serve as inspiration
   private static final List<String> packagesToReflect = List.of(
       "net.sf.mpxj.common",
       "net.sf.mpxj.mspdi.schema",
@@ -96,6 +92,7 @@ class QuarkusMpxjProcessor {
   @BuildStep
   void registerClassesForReflection(CombinedIndexBuildItem combinedIndexBuildItem,
       BuildProducer<ReflectiveClassBuildItem> reflectiveClass, List<BytecodeTransformerBuildItem> transfomed) {
+    logger.info("Registering classes for reflection");
 
     IndexView index = combinedIndexBuildItem.getIndex();
 
