@@ -12,9 +12,9 @@
     <module>runtime</module>
   </modules>
   <scm>
-    <connection>scm:git:git@github.com:Yolean/quarkus-mpxj.git</connection>
-    <developerConnection>scm:git:git@github.com:Yolean/quarkus-mpxj.git</developerConnection>
-    <url>https://github.com/Yolean/quarkus-mpxj</url>
+    <connection>scm:git:https://github.com/Yolean/quarkus-mpxj.git</connection>
+    <developerConnection>scm:git:https://github.com/Yolean/quarkus-mpxj.git</developerConnection>
+    <url>scm:git:https://github.com/Yolean/quarkus-mpxj.git</url>
     <tag>HEAD</tag>
   </scm>
   <properties>
