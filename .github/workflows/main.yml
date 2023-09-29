@@ -1,11 +1,5 @@
 name: Publish package to the yolean-github.io Repository
-on:
-  push:
-    paths:
-    - 'deployment/**'
-    - 'integration-tests/**'
-    - 'runtime/**'
-    - 'pom.xml'
+on: workflow_dispatch
 jobs:
   publish:
     runs-on: ubuntu-latest
