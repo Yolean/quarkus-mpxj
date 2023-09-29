@@ -4,7 +4,20 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+      with:
+        repository: Yolean/yolean.github.io
+        ref: mavenrepo
+        sparse-checkout: |
+          snapshots
+        path: yolean.github.io
+    - name: Copy existing snapshots
+      run: mv yolean.github.io/snapshots .
+    - name: DEUBG_ls-dir
+      run: |
+        ls snapshots/se/yolean/quarkus-mpxj/
+        ls snapshots/se/yolean/quarkus-mpxj/1.0.0-SNAPSHOT/
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
@@ -12,13 +25,17 @@ jobs:
         java-version: '17'
     - name: Publish package
       run: mvn --batch-mode deploy
-    - name: Push to Yolean mavenrepo
-      uses: cpina/github-action-push-to-another-repository@main
-      env:
-        SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
-      with:
-        source-directory: 'snapshots'
-        destination-github-username: 'Yolean'
-        destination-repository-name: 'yolean.github.io'
-        target-directory: 'snapshots'
-        target-branch: mavenrepo
+    - name: DEBUG_ls-dir-after-deploy
+      run: |
+        ls snapshots/se/yolean/quarkus-mpxj/
+        ls snapshots/se/yolean/quarkus-mpxj/1.0.0-SNAPSHOT/
+    # - name: Push to Yolean mavenrepo
+    #   uses: cpina/github-action-push-to-another-repository@main
+    #   env:
+    #     SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+    #   with:
+    #     source-directory: 'snapshots'
+    #     destination-github-username: 'Yolean'
+    #     destination-repository-name: 'yolean.github.io'
+    #     target-directory: 'snapshots'
+    #     target-branch: mavenrepo
