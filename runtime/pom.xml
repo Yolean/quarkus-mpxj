@@ -38,6 +38,11 @@
           <groupId>com.jgoodies</groupId>
           <artifactId>jgoodies-binding</artifactId>
         </exclusion>
+        <!-- Quarkus uses Jboss Logging and provides a bridge -->
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
