@@ -10,12 +10,12 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class QuarkusMpxjResourceTest {
 
-    @Test
-    public void testHelloEndpoint() {
-        given()
-                .when().get("/quarkus-mpxj")
-                .then()
-                .statusCode(200)
-                .body(is("Hello quarkus-mpxj"));
-    }
+  @Test
+  public void testHelloEndpoint() {
+    given()
+        .when().get("/quarkus-mpxj/example-project")
+        .then()
+        .statusCode(200)
+        .body(is("Success"));
+  }
 }

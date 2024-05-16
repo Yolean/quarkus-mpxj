@@ -16,17 +16,37 @@
 */
 package se.yolean.quarkus.mpxj.it;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
+import net.sf.mpxj.MPXJException;
+import net.sf.mpxj.ProjectFile;
+import net.sf.mpxj.reader.ProjectReader;
+import net.sf.mpxj.reader.UniversalProjectReader;
+
 @Path("/quarkus-mpxj")
 @ApplicationScoped
 public class QuarkusMpxjResource {
-    // add some rest methods here
+  // add some rest methods here
 
-    @GET
-    public String hello() {
-        return "Hello quarkus-mpxj";
+  @GET
+  @Path("example-project")
+  public String hello() throws IOException, MPXJException {
+    try (InputStream is = getClass().getResourceAsStream("example-project.xml")) {
+      assert is != null;
+
+      ProjectReader reader = new UniversalProjectReader();
+      try {
+        ProjectFile file = reader.read(is);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+      return "Success";
     }
+  }
 }
