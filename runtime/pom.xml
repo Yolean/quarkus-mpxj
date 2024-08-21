@@ -57,9 +57,6 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-extension-maven-plugin</artifactId>
         <version>${quarkus.version}</version>
-        <configuration>
-          <release>17</release>
-        </configuration>
         <executions>
           <execution>
             <phase>compile</phase>
@@ -73,6 +70,7 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <annotationProcessorPaths>
