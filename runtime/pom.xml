@@ -24,6 +24,10 @@
       <version>${quarkus.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>commons-logging-jboss-logging</artifactId>
+    </dependency>
+    <dependency>
       <groupId>net.sf.mpxj</groupId>
       <artifactId>mpxj</artifactId>
       <version>13.6.0</version>
@@ -37,6 +41,11 @@
         <exclusion>
           <groupId>com.jgoodies</groupId>
           <artifactId>jgoodies-binding</artifactId>
+        </exclusion>
+        <!-- Quarkus uses Jboss Logging and provides a bridge -->
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
