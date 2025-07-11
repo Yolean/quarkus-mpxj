@@ -9,22 +9,22 @@ import org.graalvm.nativeimage.impl.RuntimeClassInitializationSupport;
 public class MPXJFeature implements Feature {
 
   private static List<String> classes = List.of(
-      "net.sf.mpxj.reader.UniversalProjectReader",
-      "net.sf.mpxj.conceptdraw.ConceptDrawProjectReader",
-      "net.sf.mpxj.ganttdesigner.GanttDesignerReader",
-      "net.sf.mpxj.ganttproject.GanttProjectReader",
-      "net.sf.mpxj.mspdi.MSPDIReader",
-      "net.sf.mpxj.phoenix.PhoenixReader",
-      "net.sf.mpxj.phoenix.Phoenix4Reader",
-      "net.sf.mpxj.phoenix.Phoenix5Reader",
-      "net.sf.mpxj.planner.PlannerReader",
-      "net.sf.mpxj.primavera.PrimaveraDatabaseFileReader",
-      "net.sf.mpxj.primavera.PrimaveraPMFileReader",
-      "net.sf.mpxj.primavera.PrimaveraXERFileReader",
-      "net.sf.mpxj.primavera.p3.P3DatabaseReader",
-      "net.sf.mpxj.primavera.p3.P3PRXFileReader",
-      "net.sf.mpxj.primavera.suretrak.SureTrakDatabaseReader",
-      "net.sf.mpxj.primavera.suretrak.SureTrakSTXFileReader");
+      "org.mpxj.reader.UniversalProjectReader",
+      "org.mpxj.conceptdraw.ConceptDrawProjectReader",
+      "org.mpxj.ganttdesigner.GanttDesignerReader",
+      "org.mpxj.ganttproject.GanttProjectReader",
+      "org.mpxj.mspdi.MSPDIReader",
+      "org.mpxj.phoenix.PhoenixReader",
+      "org.mpxj.phoenix.Phoenix4Reader",
+      "org.mpxj.phoenix.Phoenix5Reader",
+      "org.mpxj.planner.PlannerReader",
+      "org.mpxj.primavera.PrimaveraDatabaseFileReader",
+      "org.mpxj.primavera.PrimaveraPMFileReader",
+      "org.mpxj.primavera.PrimaveraXERFileReader",
+      "org.mpxj.primavera.p3.P3DatabaseReader",
+      "org.mpxj.primavera.p3.P3PRXFileReader",
+      "org.mpxj.primavera.suretrak.SureTrakDatabaseReader",
+      "org.mpxj.primavera.suretrak.SureTrakSTXFileReader");
 
 
   @Override
