@@ -42,6 +42,9 @@ public class QuarkusMpxjResource {
       ProjectReader reader = new UniversalProjectReader();
       try {
         ProjectFile file = reader.read(is);
+        if (file.getTasks().size() != 100) {
+          throw new RuntimeException(String.format("Expected %d tasks in testfile, got %d", 100, file.getTasks().size()));
+        }
       } catch (Exception e) {
         e.printStackTrace();
       }
