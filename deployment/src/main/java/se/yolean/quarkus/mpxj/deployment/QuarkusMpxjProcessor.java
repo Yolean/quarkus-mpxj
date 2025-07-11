@@ -22,15 +22,15 @@ class QuarkusMpxjProcessor {
   private static final Logger logger = LoggerFactory.getLogger(QuarkusMpxjProcessor.class);
 
   private static final List<String> packagesToReflect = List.of(
-      "net.sf.mpxj.common",
-      "net.sf.mpxj.mspdi.schema",
-      "net.sf.mpxj.planner.schema",
-      "net.sf.mpxj.ganttdesigner.schema",
-      "net.sf.mpxj.ganttproject.schema",
-      "net.sf.mpxj.phoenix.schema.phoenix4",
-      "net.sf.mpxj.conceptdraw.schema",
-      "net.sf.mpxj.primavera",
-      "net.sf.mpxj.primavera.schema");
+      "org.mpxj.common",
+      "org.mpxj.mspdi.schema",
+      "org.mpxj.planner.schema",
+      "org.mpxj.ganttdesigner.schema",
+      "org.mpxj.ganttproject.schema",
+      "org.mpxj.phoenix.schema.phoenix4",
+      "org.mpxj.conceptdraw.schema",
+      "org.mpxj.primavera",
+      "org.mpxj.primavera.schema");
 
   @BuildStep
   FeatureBuildItem feature() {
@@ -45,7 +45,7 @@ class QuarkusMpxjProcessor {
   @BuildStep
   void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
     logger.info("Producing index dependency build items for mpxj");
-    indexDependency.produce(new IndexDependencyBuildItem("net.sf.mpxj", "mpxj"));
+    indexDependency.produce(new IndexDependencyBuildItem("org.mpxj", "mpxj"));
   }
 
   @BuildStep

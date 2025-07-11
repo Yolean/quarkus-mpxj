@@ -23,10 +23,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
-import net.sf.mpxj.MPXJException;
-import net.sf.mpxj.ProjectFile;
-import net.sf.mpxj.reader.ProjectReader;
-import net.sf.mpxj.reader.UniversalProjectReader;
+import org.mpxj.MPXJException;
+import org.mpxj.ProjectFile;
+import org.mpxj.reader.ProjectReader;
+import org.mpxj.reader.UniversalProjectReader;
 
 @Path("/quarkus-mpxj")
 @ApplicationScoped
