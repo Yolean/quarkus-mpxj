@@ -58,10 +58,11 @@ class QuarkusMpxjProcessor {
     packagesToReflect.stream()
         .flatMap(pack -> index.getClassesInPackage(pack).stream())
         .forEach(classInfo -> {
+          ReflectiveClassBuildItem.Builder b = ReflectiveClassBuildItem.builder(classInfo.name().toString());
           reflectiveClass
-              .produce(ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods().fields().build());
+              .produce(b.methods().fields().build());
           reflectiveClass
-              .produce(ReflectiveClassBuildItem.builder(classInfo.name().toString()).constructors().fields().build());
+              .produce(b.constructors().fields().build());
         });
   }
 }
