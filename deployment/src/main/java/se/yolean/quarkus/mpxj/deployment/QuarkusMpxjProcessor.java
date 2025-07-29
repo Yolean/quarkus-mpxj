@@ -66,9 +66,7 @@ class QuarkusMpxjProcessor {
         .forEach(classInfo -> {
           ReflectiveClassBuildItem.Builder b = ReflectiveClassBuildItem.builder(classInfo.getClass());
           reflectiveClass
-              .produce(b.methods().fields().build());
-          reflectiveClass
-              .produce(b.constructors().fields().build());
+              .produce(b.methods().fields().constructors().build());
         });
   }
 }
