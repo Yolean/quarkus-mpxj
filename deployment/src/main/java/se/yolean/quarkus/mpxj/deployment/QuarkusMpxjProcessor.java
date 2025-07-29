@@ -47,7 +47,7 @@ class QuarkusMpxjProcessor {
   @BuildStep
   void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
     logger.info("Producing index dependency build items for mpxj");
-    indexDependency.produce(new IndexDependencyBuildItem("org.mpxj", "mpxj"));
+    indexDependency.produce(new IndexDependencyBuildItem("net.sf.mpxj", "mpxj"));
   }
 
   @BuildStep
