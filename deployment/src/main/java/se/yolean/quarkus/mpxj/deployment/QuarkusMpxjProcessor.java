@@ -1,7 +1,9 @@
 package se.yolean.quarkus.mpxj.deployment;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +47,7 @@ class QuarkusMpxjProcessor {
   @BuildStep
   void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
     logger.info("Producing index dependency build items for mpxj");
-    indexDependency.produce(new IndexDependencyBuildItem("org.mpxj", "mpxj"));
+    indexDependency.produce(new IndexDependencyBuildItem("net.sf.mpxj", "mpxj"));
   }
 
   @BuildStep
@@ -56,10 +58,15 @@ class QuarkusMpxjProcessor {
     IndexView index = combinedIndexBuildItem.getIndex();
 
     packagesToReflect.stream()
-        .flatMap(pack -> index.getClassesInPackage(pack).stream())
+        .flatMap(pack -> {
+          Collection<ClassInfo> classes = index.getClassesInPackage(pack);
+          if (classes.isEmpty()) throw new IllegalArgumentException("No classes found in package " + pack);
+          return classes.stream();
+        })
         .forEach(classInfo -> {
+          ReflectiveClassBuildItem.Builder b = ReflectiveClassBuildItem.builder(classInfo.getClass());
           reflectiveClass
-              .produce(ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods().fields().build());
+              .produce(b.methods().fields().constructors().build());
         });
   }
 }
