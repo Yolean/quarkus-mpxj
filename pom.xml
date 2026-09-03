@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.yolean</groupId>
   <artifactId>quarkus-mpxj-parent</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Quarkus Mpxj - Parent</name>
   <modules>
@@ -17,14 +17,16 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <compiler-plugin.version>3.14.0</compiler-plugin.version>
+    <compiler-plugin.version>3.16.0</compiler-plugin.version>
     <maven.compiler.release>17</maven.compiler.release>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.version>3.35.4</quarkus.version>
-    <surefire-plugin.version>3.5.3</surefire-plugin.version>
+    <quarkus.version>3.39.1</quarkus.version>
+    <quarkus-poi.version>2.2.1</quarkus-poi.version>
+    <mpxj.version>16.7.0</mpxj.version>
+    <surefire-plugin.version>3.5.6</surefire-plugin.version>
     <project.scm.id>github</project.scm.id>
   </properties>
   <distributionManagement>
