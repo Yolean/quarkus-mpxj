@@ -14,9 +14,8 @@ import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.NativeImageFeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import se.yolean.quarkus.mpxj.runtime.graal.MPXJFeature;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class QuarkusMpxjProcessor {
 
@@ -39,9 +38,28 @@ class QuarkusMpxjProcessor {
     return new FeatureBuildItem(FEATURE);
   }
 
+  // The readers' static initializers must run at image run time, not build time
+  private static final List<String> runtimeInitialized = List.of(
+      "org.mpxj.reader.UniversalProjectReader",
+      "org.mpxj.conceptdraw.ConceptDrawProjectReader",
+      "org.mpxj.ganttdesigner.GanttDesignerReader",
+      "org.mpxj.ganttproject.GanttProjectReader",
+      "org.mpxj.mspdi.MSPDIReader",
+      "org.mpxj.phoenix.PhoenixReader",
+      "org.mpxj.phoenix.Phoenix4Reader",
+      "org.mpxj.phoenix.Phoenix5Reader",
+      "org.mpxj.planner.PlannerReader",
+      "org.mpxj.primavera.PrimaveraDatabaseFileReader",
+      "org.mpxj.primavera.PrimaveraPMFileReader",
+      "org.mpxj.primavera.PrimaveraXERFileReader",
+      "org.mpxj.primavera.p3.P3DatabaseReader",
+      "org.mpxj.primavera.p3.P3PRXFileReader",
+      "org.mpxj.primavera.suretrak.SureTrakDatabaseReader",
+      "org.mpxj.primavera.suretrak.SureTrakSTXFileReader");
+
   @BuildStep
-  NativeImageFeatureBuildItem nativeImageFeature() {
-    return new NativeImageFeatureBuildItem(MPXJFeature.class);
+  void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInit) {
+    runtimeInitialized.forEach(className -> runtimeInit.produce(new RuntimeInitializedClassBuildItem(className)));
   }
 
   @BuildStep
